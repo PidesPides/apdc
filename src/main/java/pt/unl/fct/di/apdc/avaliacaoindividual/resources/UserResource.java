@@ -63,7 +63,6 @@ public class UserResource {
 						.set("user_pass", DigestUtils.sha512Hex(data.password)).set("user_email", data.email)
 						.set("user_role", RoleTypes.USER.name()).build();
 				txn.add(user);
-				data.isActive = true;
 				LOG.info("User registered " + data.username);
 				txn.commit();
 				return Response.ok().build();
