@@ -111,9 +111,7 @@ public class UserResource {
 
 		if (getUser(username) == null)
 			return Response.status(Status.NOT_FOUND).build();
-		//
-		// como verificar que e mesmo este user logged in a mudar a pass?
-		//
+		
 
 		Transaction txn = datastore.newTransaction();
 		try {
@@ -121,9 +119,10 @@ public class UserResource {
 			Entity user = txn.get(userKey);
 			if (user == null) {
 				txn.rollback();
-				return Response.status(Status.BAD_REQUEST).entity("User doesn not exist.").build();
+				return Response.status(Status.BAD_REQUEST).entity("User does not exist.").build();
 			} else {
-				user = Entity.newBuilder(userKey).set("user_pass", data.password).set("user_email", data.email)
+				user = Entity.newBuilder(userKey)
+						.set("user_pass", DigestUtils.sha512Hex(data.password)).set("user_email", data.email)
 						.set("user_public", data.profilePublic).set("user_landline", data.landlineNumber)
 						.set("user_mobile", data.mobileNumber).set("user_addr", data.address)
 						.set("user_addr2", data.alternativeAddress).set("user_zone", data.zone).build();

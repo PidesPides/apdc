@@ -61,7 +61,7 @@ public class LoginResource {
 		}
 	}
 
-	
+	/*
 	@POST
 	@Path("/logout")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -72,5 +72,5 @@ public class LoginResource {
 		
 	
 	}
-	
+	*/
 }
